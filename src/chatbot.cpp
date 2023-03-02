@@ -51,7 +51,7 @@ ChatBot::ChatBot(ChatBot &source)
     _image      = source._image;
     _rootNode   = source._rootNode;
     _chatLogic  = source._chatLogic;
-  	_chatLogic->SetChatbotHandle(this);
+    _chatLogic->SetChatbotHandle(this);
 
 }
 
@@ -61,7 +61,7 @@ ChatBot::ChatBot(ChatBot &&source)
     _image      = source._image;
     _rootNode   = source._rootNode;
     _chatLogic  = source._chatLogic;
-  	_chatLogic->SetChatbotHandle(this);
+  	_chatLogic->SetChatbotHandle(this); //learned from UDACITY knowledge portal
 
     source._image = NULL;
     source._rootNode = NULL;
