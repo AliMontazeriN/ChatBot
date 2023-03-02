@@ -48,15 +48,24 @@ ChatBot::~ChatBot()
 ChatBot::ChatBot(ChatBot &source)
 {
     std::cout << "ChatBot Copy Constructor" << std::endl;
-    _image = source._image;
-    source._image = NULL;
+    _image      = source._image;
+    _rootNode   = source._rootNode;
+    _chatLogic  = source._chatLogic;
+  	_chatLogic->SetChatbotHandle(this);
+
 }
 
 ChatBot::ChatBot(ChatBot &&source)
 {
     std::cout << "ChatBot Move Constructor" << std::endl;
-    _image = source._image;
-    source._image = NULL; 
+    _image      = source._image;
+    _rootNode   = source._rootNode;
+    _chatLogic  = source._chatLogic;
+  	_chatLogic->SetChatbotHandle(this);
+
+    source._image = NULL;
+    source._rootNode = NULL;
+    source._chatLogic = NULL;
 }
 ////
 //// EOF STUDENT CODE
@@ -99,7 +108,7 @@ void ChatBot::SetCurrentNode(GraphNode *node)
 {
     // update pointer to current node
     _currentNode = node;
-
+    
     // select a random node answer (if several answers should exist)
     std::vector<std::string> answers = _currentNode->GetAnswers();
     std::mt19937 generator(int(std::time(0)));
@@ -107,7 +116,7 @@ void ChatBot::SetCurrentNode(GraphNode *node)
     std::string answer = answers.at(dis(generator));
 
     // send selected node answer to user
-    _chatLogic->SendMessageToUser(answer);
+     _chatLogic->SendMessageToUser(answer);
 }
 
 int ChatBot::ComputeLevenshteinDistance(std::string s1, std::string s2)

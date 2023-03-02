@@ -4,6 +4,7 @@
 #include <wx/bitmap.h>
 #include <string>
 #include <iostream>
+#include "chatlogic.h"
 
 class GraphNode; // forward declaration
 class ChatLogic; // forward declaration
@@ -39,8 +40,11 @@ public:
         if(this == &source)
             return *this;
 
-        _image = source._image;
-        source._image = NULL;
+        _image      = source._image;
+        _rootNode   = source._rootNode;
+        _chatLogic  = source._chatLogic;
+      	_chatLogic->SetChatbotHandle(this);
+
         return *this;
     }
 
@@ -52,8 +56,15 @@ public:
         if(this == &source)
             return *this;
 
-        _image = source._image;
+        _image      = source._image;
+        _rootNode   = source._rootNode;
+        _chatLogic  = source._chatLogic;
+        _chatLogic->SetChatbotHandle(this);
+
         source._image = NULL;
+        source._rootNode = NULL;
+        source._chatLogic = NULL;
+
         return *this;
     }
 
